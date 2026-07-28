@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { GithubIcon, LinkedinIcon, MailIcon, MapPinIcon } from 'lucide-react';
 import { useTypewriter } from '../hooks/useTypewriter';
 
-const ROLES = ['Graphic Designer', 'UI/UX Designer'];
+const ROLES = ['UI/UX Designer'];
 
 export function Hero() {
   const typed = useTypewriter(ROLES);
@@ -38,7 +38,7 @@ export function Hero() {
               
               <span aria-hidden="true">{typed}</span>
               <span
-                className="ml-0.5 inline-block h-[0.9em] w-[3px] animate-pulse bg-accent align-middle"
+                className="ml-0.5 h-[0.9em] w-[3px] animate-pulse bg-accent align-middle"
                 aria-hidden="true" />
               
             </p>

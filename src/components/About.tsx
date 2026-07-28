@@ -17,13 +17,11 @@ export function About() {
         <div className="grid gap-12 md:grid-cols-2">
           <div className="space-y-6">
             <p className="text-lg leading-relaxed text-body">
-              Proficient in Figma, Framer, Adobe Photoshop, Illustrator, and Canva, with hands-on experience across branding, wireframing, prototyping, and responsive interface design.
+             {/* I am a UI/UX Designer with a passion for creating intuitive, user-centered, and visually engaging digital experiences. I specialize in transforming ideas into functional, accessible, and aesthetically refined interfaces through user research, wireframing, prototyping, and high-fidelity design, with a strong focus on usability and seamless user experiences. */}
+             Driven by a passion for UI/UX design, I create intuitive, user-centered, and visually engaging digital experiences. I specialize in transforming ideas into functional, accessible, and aesthetically refined interfaces through user research, wireframing, prototyping, and high-fidelity design, with a strong focus on usability and seamless user experiences.
             </p>
             <p className="text-lg leading-relaxed text-body">
-              Dedicated to combining creativity, usability, and visual storytelling to deliver impactful design solutions. Experience spans UI/UX design at Medics Nepal and graphic design at Orchard Institute, with a focus on enhancing user engagement and brand visibility.
-            </p>
-            <p className="text-lg leading-relaxed text-body">
-              Strong foundation in full-stack development using the MERN Stack, with academic projects including a rental management system and blood donation platform. Committed to creating accessible, user-centered digital experiences through research, wireframing, and prototyping.
+             Proficient in Figma, Framer, Adobe Photoshop, Adobe Illustrator, and Canva, I combine design principles with creative problem-solving to deliver impactful digital products. I am committed to continuous learning, staying current with industry trends, and collaborating with cross-functional teams to create innovative solutions that align user needs with business goals.
             </p>
           </div>
 

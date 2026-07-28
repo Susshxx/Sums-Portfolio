@@ -1,0 +1,48 @@
+interface Design {
+  title: string;
+  image: string;
+  liveUrl?: string;
+  deviceType?: 'desktop' | 'mobile';
+  customHeight?: string;
+  disableMacPreview?: boolean;
+}
+
+interface DesignGalleryProps {
+  designs: Design[];
+  onDesignSelect: (design: Design) => void;
+  selectedDesign?: Design;
+}
+
+export function DesignGallery({ designs, onDesignSelect, selectedDesign }: DesignGalleryProps) {
+  return (
+    <div className="h-[350px] overflow-y-auto p-4">
+      <div className="flex flex-col gap-3">
+        {designs.map((design, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onDesignSelect(design);
+            }}
+            className={`relative rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
+              selectedDesign === design ? 'border-accent shadow-lg' : 'border-transparent hover:border-gray-300'
+            }`}
+            style={{ height: design.customHeight || (design.deviceType === 'mobile' ? 'auto' : 'auto'), aspectRatio: design.customHeight ? 'auto' : (design.deviceType === 'mobile' ? '9/19.5' : '16/9') }}
+          >
+            <img
+              src={design.image}
+              alt={design.title}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute bottom-2 left-2 right-2">
+              <p className="text-xs font-medium text-white truncate">{design.title}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}

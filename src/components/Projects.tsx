@@ -1,6 +1,7 @@
-import React from 'react';
-import { ExternalLinkIcon, GithubIcon, LockIcon } from 'lucide-react';
+import { useState } from 'react';
+import { ExternalLinkIcon, GithubIcon, LockIcon, MonitorIcon, SmartphoneIcon, GridIcon } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
+import { PreviewDialog } from './PreviewDialog';
 
 type Project = {
   eyebrow?: string;
@@ -9,7 +10,19 @@ type Project = {
   tech: string[];
   link?: {label: string;href: string;icon: 'external' | 'github';target?: string;};
   note?: string;
-  visual: React.ReactNode;
+  visual?: React.ReactNode;
+  liveUrl?: string;
+  staticImage?: string;
+  designs?: Array<{
+    title: string;
+    image: string;
+    liveUrl?: string;
+    deviceType?: 'desktop' | 'mobile';
+    customHeight?: string;
+    disableMacPreview?: boolean;
+  }>;
+  disablePreview?: boolean;
+  disablePhonePreview?: boolean;
 };
 
 function FlatmateVisual() {
@@ -23,11 +36,11 @@ function MedicsVisual() {
     <img src="/lifeflow.png" alt="Blood Donation Project" className="h-full w-full object-cover" />
   );
 }
-function AirwaysVisual() {
-  return (
-    <img src="/plane.png" alt="Airways Project" className="h-full w-full object-cover" />
-  );
-}
+// function AirwaysVisual() {
+//   return (
+//     <img src="/plane.png" alt="Airways Project" className="h-full w-full object-cover" />
+//   );
+// }
 
 function BrandingVisual() {
   return (
@@ -49,7 +62,8 @@ const PROJECTS: Project[] = [
   'Designed and developed a comprehensive rental management platform using Figma for UI/UX design and the MERN Stack. Created responsive interfaces for landing page, authentication, and dedicated dashboards for Admin, Tenant, and Landlord users. Features include profile management, favourites, accessibility features, dark/light theme switching, real-time location tracking, in-app messaging, and property management.',
   tech: ['Figma', 'MERN Stack', 'React.js', 'Node.js', 'MongoDB'],
   link: { label: 'View Project', href: 'https://sumedha2408480-flat-mate.onrender.com/', icon: 'external', target: '_blank' },
-  visual: <FlatmateVisual />
+  visual: <FlatmateVisual />,
+  liveUrl: 'https://sumedha2408480-flat-mate.onrender.com/'
 },
 {
   eyebrow: 'Academic Project',
@@ -58,24 +72,26 @@ const PROJECTS: Project[] = [
   'Designed and developed a blood donation management platform with dedicated modules for Donors, Users, and Administrators. Created complete UI/UX in Figma and developed using MERN Stack. Implemented responsive authentication, user dashboards, donor registration, blood request management, profile management, administrative controls, and intuitive navigation.',
   tech: ['Figma', 'MERN Stack', 'React.js', 'Node.js', 'MongoDB'],
   link: { label: 'View Project', href: 'https://lifeflow-uj6d.onrender.com/', icon: 'external', target: '_blank' },
-  visual: <MedicsVisual />
+  visual: <MedicsVisual />,
+  liveUrl: 'https://lifeflow-uj6d.onrender.com/'
 },
-{
-  eyebrow: 'Academic Project',
-  title: 'Airways',
-  description:
-  'Designed and developed a flight booking system with dedicated modules for Admin, and User. Created complete UI/UX in Figma and developed using MERN Stack. Implemented responsive authentication, user dashboards, flight booking, profile management, administrative controls, and intuitive navigation.',
-  tech: ['Figma', 'HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
-  link: { label: 'View Project', href: 'https://github.com/Susshxx/colab', icon: 'github', target: '_blank' },
-  visual: <AirwaysVisual />
-},
+// {
+//   eyebrow: 'Academic Project',
+//   title: 'Airways',
+//   description:
+//   'Designed and developed a flight booking system with dedicated modules for Admin, and User. Created complete UI/UX in Figma and developed using MERN Stack. Implemented responsive authentication, user dashboards, flight booking, profile management, administrative controls, and intuitive navigation.',
+//   tech: ['Figma', 'HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
+//   link: { label: 'View Project', href: 'https://github.com/Susshxx/colab', icon: 'github', target: '_blank' },
+//   visual: <AirwaysVisual />
+// },
 {
   title: 'E-Commerce Website',
   description:
   'Designed and developed a responsive e-commerce website with a clean, user-friendly interface using HTML, CSS, and JavaScript. Implemented intuitive navigation, responsive layouts, and interactive components while ensuring cross-browser compatibility and optimal performance.',
   tech: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
   link: { label: 'View Project', href: 'https://dierashop.com', icon: 'external', target: '_blank' },
-  visual: <BrandingVisual />
+  visual: <BrandingVisual />,
+  liveUrl: 'https://dierashop.com'
 },
 {
   eyebrow: 'Design Project',
@@ -84,16 +100,63 @@ const PROJECTS: Project[] = [
   'Designed modern, responsive landing pages for travel and aquatic-themed websites using Figma and Framer. Created visually engaging layouts, interactive prototypes, user-focused navigation, and responsive interfaces while applying modern UI/UX principles and design systems.',
   tech: ['Figma', 'Framer', 'UI/UX Design', 'Prototyping'],
   link: { label: 'View Project', href: 'https://www.figma.com/design/7P5TDNl3JZLP4MdfNzJAiu/Flat-mate--Rental-management-System-?node-id=263-658&p=f&t=L0tkwb48O2oaMgcP-0', icon: 'external', target: '_blank' },
-  // note: 'Design Projects',
-  visual: <FigmaVisual />
+  visual: <FigmaVisual />,
+  designs: [
+    { title: 'ThailandTravel Landing Page', image: '/Travel1.png' },
+    { title: 'Travel Landing Page', image: '/Travel2.png' },
+    { title: 'Aquatic Theme Design', image: '/Aqua.png' },
+    { title: 'Dark Aquatic Theme Design', image: '/water.png' },
+    { title: 'Aquatic Theme Mobile Design', image: '/Aquamobile.png', deviceType: 'mobile', disableMacPreview: true, customHeight: '180px' },
+  ],
+  disablePhonePreview: true
 }];
 
 
 function ProjectRow({ project, reversed }: {project: Project;reversed: boolean;}) {
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewDevice, setPreviewDevice] = useState<'mac' | 'phone'>('mac');
+  const hasPreview = (project.liveUrl || project.staticImage || project.designs) && !project.disablePreview;
+
   return (
     <article className="grid items-center gap-10 md:grid-cols-2 md:gap-6">
       <div className={reversed ? 'md:order-2' : 'md:order-1'}>
-        <div className="h-[240px] overflow-hidden rounded-2xl">{project.visual}</div>
+        <div className="relative">
+          <div className="h-[240px] overflow-hidden rounded-2xl">{project.visual}</div>
+          {hasPreview && (
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+              {project.designs ? (
+                <button
+                  type="button"
+                  onClick={(e) => { e.preventDefault(); setPreviewDevice('mac'); setPreviewOpen(true); }}
+                  className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-heading shadow-md hover:bg-white transition-colors"
+                  aria-label="View Gallery"
+                >
+                  <GridIcon className="h-4 w-4" />
+                  View Gallery
+                </button>
+              ) : (
+                <div className={`flex gap-2 ${reversed ? 'flex-row-reverse' : ''}`}>
+                  {!project.disablePhonePreview && (
+                    <button
+                      onClick={() => { setPreviewDevice('phone'); setPreviewOpen(true); }}
+                      className="rounded-full bg-white/90 p-2 text-heading shadow-md hover:bg-white transition-colors"
+                      aria-label="Preview on Phone"
+                    >
+                      <SmartphoneIcon className="h-4 w-4" />
+                    </button>
+                  )}
+                  <button
+                    onClick={() => { setPreviewDevice('mac'); setPreviewOpen(true); }}
+                    className="rounded-full bg-white/90 p-2 text-heading shadow-md hover:bg-white transition-colors"
+                    aria-label="Preview on Mac"
+                  >
+                    <MonitorIcon className="h-4 w-4" />
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       <div
@@ -142,6 +205,15 @@ function ProjectRow({ project, reversed }: {project: Project;reversed: boolean;}
           </span>
         }
       </div>
+      <PreviewDialog
+        isOpen={previewOpen}
+        onClose={() => setPreviewOpen(false)}
+        initialDevice={previewDevice}
+        contentType={project.liveUrl ? 'live' : 'static'}
+        content={project.liveUrl || project.staticImage || ''}
+        designs={project.designs}
+        disablePhonePreview={project.disablePhonePreview}
+      />
     </article>);
 
 }
