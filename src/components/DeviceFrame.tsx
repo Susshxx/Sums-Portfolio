@@ -139,7 +139,8 @@
 
 //   return null;
 // }
-
+import { useEffect, useState } from 'react';
+import { useImageCache } from '../hooks/useImageCache';
 
 type DeviceType = 'mac' | 'phone' | 'full';
 type ContentType = 'live' | 'static';
@@ -153,6 +154,19 @@ interface DeviceFrameProps {
 }
 
 export function DeviceFrame({ device, contentType, content, onClose, onDeviceChange }: DeviceFrameProps) {
+  const { isCacheReady, cacheImage } = useImageCache();
+  const [cachedContent, setCachedContent] = useState<string>(content);
+
+  useEffect(() => {
+    if (!isCacheReady || contentType === 'live') return;
+
+    const cacheContent = async () => {
+      const cachedUrl = await cacheImage(content);
+      setCachedContent(cachedUrl);
+    };
+
+    cacheContent();
+  }, [content, contentType, isCacheReady, cacheImage]);
 
   if (device === 'full') {
     return (
@@ -166,7 +180,7 @@ export function DeviceFrame({ device, contentType, content, onClose, onDeviceCha
           />
         ) : (
           <img
-            src={content}
+            src={cachedContent}
             alt="Project preview"
             className="h-full w-full object-contain"
           />
@@ -240,7 +254,7 @@ export function DeviceFrame({ device, contentType, content, onClose, onDeviceCha
               />
             ) : (
               <img
-                src={content}
+                src={cachedContent}
                 alt="Project preview"
                 className="w-full"
                 style={{ maxWidth: '100%' }}
@@ -268,7 +282,7 @@ export function DeviceFrame({ device, contentType, content, onClose, onDeviceCha
                 />
               ) : (
                 <img
-                  src={content}
+                  src={cachedContent}
                   alt="Project preview"
                   className="w-full"
                   style={{ maxWidth: '100%' }}

@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useImageCache } from '../hooks/useImageCache';
+
 interface Design {
   title: string;
   image: string;
@@ -14,6 +17,26 @@ interface DesignGalleryProps {
 }
 
 export function DesignGallery({ designs, onDesignSelect, selectedDesign }: DesignGalleryProps) {
+  const { isCacheReady, cacheImage } = useImageCache();
+  const [cachedImages, setCachedImages] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (!isCacheReady) return;
+
+    const cacheAllImages = async () => {
+      const imageMap: Record<string, string> = {};
+      
+      for (const design of designs) {
+        const cachedUrl = await cacheImage(design.image);
+        imageMap[design.image] = cachedUrl;
+      }
+      
+      setCachedImages(imageMap);
+    };
+
+    cacheAllImages();
+  }, [designs, isCacheReady, cacheImage]);
+
   return (
     <div className="h-[350px] overflow-y-auto p-4">
       <div className="flex flex-col gap-3">
@@ -32,7 +55,7 @@ export function DesignGallery({ designs, onDesignSelect, selectedDesign }: Desig
             style={{ height: design.customHeight || (design.deviceType === 'mobile' ? 'auto' : 'auto'), aspectRatio: design.customHeight ? 'auto' : (design.deviceType === 'mobile' ? '9/19.5' : '16/9') }}
           >
             <img
-              src={design.image}
+              src={cachedImages[design.image] || design.image}
               alt={design.title}
               className="h-full w-full object-cover"
             />
