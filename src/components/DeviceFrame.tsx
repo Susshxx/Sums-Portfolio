@@ -191,7 +191,7 @@ export function DeviceFrame({ device, contentType, content, onClose, onDeviceCha
 
   if (device === 'mac') {
     return (
-      <div className="relative mx-auto w-[800px] max-w-full" onClick={(e) => { e.stopPropagation(); onDeviceChange?.('mac'); }}>
+      <div className="relative mx-auto w-[800px] max-w-full" onClick={(e) => e.stopPropagation()}>
         {/* Browser Window Frame */}
         <div className="rounded-lg bg-[#e8e8e8] shadow-2xl overflow-hidden">
           {/* Title Bar */}
@@ -268,7 +268,7 @@ export function DeviceFrame({ device, contentType, content, onClose, onDeviceCha
 
   if (device === 'phone') {
     return (
-      <div className="relative mx-auto w-full max-w-[250px]" onClick={(e) => { e.stopPropagation(); onDeviceChange?.('phone'); }}>
+      <div className="relative mx-auto w-full max-w-[250px]" onClick={(e) => e.stopPropagation()}>
         <div className="relative rounded-[20px] bg-[#1a1a1a] p-[4px] shadow-2xl">
           <div className="relative overflow-hidden rounded-[16px] bg-black">
             <div className={`w-full bg-white ${contentType === 'live' ? 'overflow-hidden' : 'overflow-auto'}`} style={{ aspectRatio: '9/19.5', maxHeight: 'calc(90vh - 60px)' }}>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { MonitorIcon, SmartphoneIcon } from 'lucide-react';
+import { MonitorIcon, SmartphoneIcon, XIcon } from 'lucide-react';
 import { DeviceFrame } from './DeviceFrame';
 import { DesignGallery } from './DesignGallery';
 
@@ -138,6 +138,15 @@ export function PreviewDialog({ isOpen, onClose, initialDevice, contentType, con
       {/* Mobile layout for screens < 500px */}
       <div className="fixed bottom-0 left-0 right-0 top-0 z-[60] bg-black/90 backdrop-blur-md flex flex-col" style={{ display: isMobile ? 'flex' : 'none' }}>
         
+        {/* Close button - mobile only */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-[70] rounded-[10px] bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
+          aria-label="Close preview"
+        >
+          <XIcon className="h-6 w-6" />
+        </button>
+
         <div className="flex-1 overflow-auto flex items-center justify-center p-4">
           <div className="w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
             <DeviceFrame 
