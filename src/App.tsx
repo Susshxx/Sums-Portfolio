@@ -9,10 +9,12 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { CursorTrail } from './components/CursorTrail';
 import { ThemeToggle } from './components/ThemeToggle';
+import { WelcomeScreen } from './components/WelcomeScreen';
 
 export function App() {
   return (
     <div className="min-h-screen w-full bg-white">
+      <WelcomeScreen />
       <CursorTrail />
       <Header />
       <main>

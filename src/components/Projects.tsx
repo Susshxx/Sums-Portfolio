@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ExternalLinkIcon, GithubIcon, LockIcon, MonitorIcon, SmartphoneIcon, GridIcon } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
 import { PreviewDialog } from './PreviewDialog';
+import { th } from 'framer-motion/client';
 
 type Project = {
   eyebrow?: string;
@@ -16,6 +17,7 @@ type Project = {
   designs?: Array<{
     title: string;
     image: string;
+    thumbnail?: string;
     liveUrl?: string;
     deviceType?: 'desktop' | 'mobile';
     customHeight?: string;
@@ -102,11 +104,14 @@ const PROJECTS: Project[] = [
   link: { label: 'View Project', href: 'https://www.figma.com/design/7P5TDNl3JZLP4MdfNzJAiu/Flat-mate--Rental-management-System-?node-id=263-658&p=f&t=L0tkwb48O2oaMgcP-0', icon: 'external', target: '_blank' },
   visual: <FigmaVisual />,
   designs: [
-    { title: 'ThailandTravel Landing Page', image: 'https://files.catbox.moe/2mnoc1.png' },
-    { title: 'Travel Landing Page', image: 'https://files.catbox.moe/p3k3pi.png' },
-    { title: 'Aquatic Theme Design', image: 'https://files.catbox.moe/srwqpf.png' },
-    { title: 'Dark Aquatic Theme Design', image: 'https://files.catbox.moe/vlhnfo.png' },
-    { title: 'Aquatic Theme Mobile Design', image: 'https://files.catbox.moe/4ucbvg.png', deviceType: 'mobile', disableMacPreview: true, customHeight: '180px' },
+    {title: 'Clothing Ecommerce', image: '/Ui5.png'},
+    {title: 'Clothing Store', image: '/ui6.png', thumbnail: '/ui6_thumb.png'},
+    // { title: 'ThailandTravel Landing Page', image: '/thai.png' },
+    { title: 'Travel Landing Page', image: '/Travel2.png' },
+    { title: 'Aquatic Theme Design', image: '/Aqua.png' },
+    { title: 'Dark Aquatic Theme Design', image: '/water.png', thumbnail: '/water_thumb.png' },
+    // { title: 'Aquatic Theme Mobile Design', image: '/Aquamobile.png', deviceType: 'mobile', disableMacPreview: true, customHeight: '180px' },
+
   ],
   disablePhonePreview: true
 }];

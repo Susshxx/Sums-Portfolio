@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { GithubIcon, LinkedinIcon, MailIcon, MapPinIcon } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, MailIcon, MapPinIcon, MessageCircleIcon } from 'lucide-react';
 import { useTypewriter } from '../hooks/useTypewriter';
 
 const ROLES = ['UI/UX Designer'];
@@ -86,6 +86,15 @@ export function Hero() {
               className="text-heading/70 transition-colors hover:text-accent">
               
               <LinkedinIcon className="h-6 w-6" />
+            </a>
+            <a
+              href="https://wa.me/9779823170241"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="WhatsApp"
+              className="text-heading/70 transition-colors hover:text-accent">
+              
+              <MessageCircleIcon className="h-6 w-6" />
             </a>
             <a
               href="https://mail.google.com/mail/u/0/#inbox/FMfcgzQhVXHWwkSwsWsHqLMtDCrdTkdM?compose=GTvVlcRzCpXCPnRXHpMMFkFnGllvBTNWHFTSvFxvfgcHZfXDKMLFCvfKlCmrsVlCBnnCbRLWcBTlb"

@@ -18,3 +18,4 @@ export const isEmailJsConfigured =
 !EMAILJS_SERVICE_ID.startsWith('YOUR_') &&
 !EMAILJS_TEMPLATE_ID.startsWith('YOUR_') &&
 !EMAILJS_PUBLIC_KEY.startsWith('YOUR_');
+
