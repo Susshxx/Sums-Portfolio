@@ -84,6 +84,16 @@ export function Header() {
                 </a>
               </li>
           )}
+            <li>
+              <a
+                href="/SumedhaMali_CV.pdf"
+                download
+                onClick={() => setOpen(false)}
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-heading px-5 py-3 text-base font-medium text-white">
+                <DownloadIcon className="h-4 w-4" aria-hidden="true" />
+                Download Resume
+              </a>
+            </li>
           </ul>
         </nav>
       }

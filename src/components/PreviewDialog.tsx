@@ -112,7 +112,7 @@ export function PreviewDialog({ isOpen, onClose, initialDevice, contentType, con
           </div>
         )}
         <div className="h-full w-full overflow-auto flex items-center justify-center">
-          <div className="flex items-center gap-6 w-full max-w-7xl">
+          <div className="flex items-center gap-6 w-full max-w-7xl" onClick={(e) => e.stopPropagation()}>
             {designs && designs.length > 0 && (
               <div className="w-1/4 max-w-xs">
                 <DesignGallery 
@@ -136,10 +136,10 @@ export function PreviewDialog({ isOpen, onClose, initialDevice, contentType, con
         </div>
       </div>
       {/* Mobile layout for screens < 500px */}
-      <div className="fixed bottom-0 left-0 right-0 top-0 z-[60] bg-black/90 backdrop-blur-md flex flex-col" style={{ display: isMobile ? 'flex' : 'none' }} onClick={(e) => e.stopPropagation()}>
+      <div className="fixed bottom-0 left-0 right-0 top-0 z-[60] bg-black/90 backdrop-blur-md flex flex-col" style={{ display: isMobile ? 'flex' : 'none' }}>
         
         <div className="flex-1 overflow-auto flex items-center justify-center p-4">
-          <div className="w-full h-full flex items-center justify-center">
+          <div className="w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
             <DeviceFrame 
               key={`${isOpen}-${currentContent}`} 
               device={device} 
@@ -153,7 +153,7 @@ export function PreviewDialog({ isOpen, onClose, initialDevice, contentType, con
 
         {/* Mobile device toggle buttons */}
         {!designs && (
-          <div className="flex justify-center gap-2 p-4 border-t border-white/10">
+          <div className="flex justify-center gap-2 p-4 border-t border-white/10" onClick={(e) => e.stopPropagation()}>
             {!selectedDesign?.disableMacPreview && (!selectedDesign?.deviceType || selectedDesign.deviceType === 'desktop') ? (
               <button
                 onClick={() => setDevice('mac')}
@@ -180,7 +180,7 @@ export function PreviewDialog({ isOpen, onClose, initialDevice, contentType, con
         )}
 
         {designs && designs.length > 0 && (
-          <div className="w-full border-t border-white/10 bg-black/50">
+          <div className="w-full border-t border-white/10 bg-black/50" style={{ marginBottom: '20px' }} onClick={(e) => e.stopPropagation()}>
             <div className="max-h-[140px] overflow-x-auto overflow-y-hidden p-3">
               <div className="flex gap-3">
                 {designs.map((design, index) => (

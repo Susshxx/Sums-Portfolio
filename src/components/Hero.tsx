@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full overflow-hidden bg-white px-6 pb-12 pt-20 md:pb-16 md:pt-28 border-b border-line min-h-screen flex items-center">
+      className="relative w-full overflow-hidden bg-white px-6 pb-12 pt-24 md:pb-16 md:pt-28 border-b border-line min-h-screen flex items-center">
       
 
       <div className="relative mx-auto grid w-full max-w-[896px] items-center gap-14 lg:grid-cols-2">
