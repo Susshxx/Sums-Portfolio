@@ -14,29 +14,46 @@ const fontVariants = [
 ];
 
 export function WelcomeScreen() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsVisible(true);
-    
-    // Cycle through fonts
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev >= fontVariants.length - 1) {
-          clearInterval(interval);
-          // Hold on last font for a moment before fading out
-          setTimeout(() => {
-            setIsVisible(false);
-          }, 600);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 350); // Change font every 350ms
+    // Ensure content is loaded
+    const handleLoad = () => {
+      setIsLoading(false);
+    };
 
-    return () => clearInterval(interval);
+    if (document.readyState === 'complete') {
+      setIsLoading(false);
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
+
+    return () => window.removeEventListener('load', handleLoad);
   }, []);
+
+  useEffect(() => {
+    // Start the animation only after loading is complete
+    if (!isLoading) {
+      // Cycle through fonts
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => {
+          if (prev >= fontVariants.length - 1) {
+            clearInterval(interval);
+            // Hold on last font for a moment before fading out
+            setTimeout(() => {
+              setIsVisible(false);
+            }, 600);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 350); // Change font every 350ms
+
+      return () => clearInterval(interval);
+    }
+  }, [isLoading]);
 
   return (
     <AnimatePresence>
@@ -57,4 +74,3 @@ export function WelcomeScreen() {
     </AnimatePresence>
   );
 }
-
