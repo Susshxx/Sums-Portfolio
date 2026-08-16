@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { MailIcon, MapPinIcon, LinkedinIcon, PhoneIcon, SendIcon, CheckIcon, LoaderIcon } from 'lucide-react';
+import { MailIcon, MapPinIcon, LinkedinIcon, PhoneIcon, SendIcon, CheckIcon, LoaderIcon, PaletteIcon } from 'lucide-react';
 import {
   EMAILJS_PUBLIC_KEY,
   EMAILJS_SERVICE_ID,
@@ -83,24 +83,45 @@ export function Contact() {
         </div>
 
         <div className="mt-14 grid items-start gap-8 lg:grid-cols-[360px_1fr]">
-          <div className="flex flex-col gap-8 rounded-2xl border border-line bg-white p-8 shadow-sm">
-            {DETAILS.map(({ icon: Icon, label, value, href }) =>
-            <div key={label} className="flex items-center gap-4">
-                <span className="rounded-xl bg-secondary p-3 text-accent">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-8 rounded-2xl border border-line bg-white p-8 shadow-sm">
+              {DETAILS.map(({ icon: Icon, label, value, href }) =>
+              <div key={label} className="flex items-center gap-4">
+                  <span className="rounded-xl bg-secondary p-3 text-accent">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-sm text-body">{label}</p>
+                    {href ?
+                  <a href={href} className="text-base font-semibold text-heading hover:underline">
+                        {value}
+                      </a> :
+
+                  <p className="text-base font-semibold text-heading">{value}</p>
+                  }
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <a 
+              href="https://sumedhamali.vercel.app"
+              target="_blank"
+              rel="noreferrer"
+              className="group rounded-2xl border border-line bg-gradient-to-br from-accent/5 to-accent/10 p-6 shadow-sm transition-all hover:shadow-md hover:border-accent/50"
+            >
+              <div className="flex items-center gap-4">
+                <span className="rounded-xl bg-accent/10 p-3 text-accent group-hover:bg-accent group-hover:text-white transition-colors">
+                  <PaletteIcon className="h-6 w-6" aria-hidden="true" />
                 </span>
                 <div>
-                  <p className="text-sm text-body">{label}</p>
-                  {href ?
-                <a href={href} className="text-base font-semibold text-heading hover:underline">
-                      {value}
-                    </a> :
-
-                <p className="text-base font-semibold text-heading">{value}</p>
-                }
+                  <p className="text-sm font-medium text-accent">Graphics Portfolio</p>
+                  <p className="text-lg font-bold text-heading group-hover:text-accent transition-colors">
+                    View My Graphics Work →
+                  </p>
                 </div>
               </div>
-            )}
+            </a>
           </div>
 
           <form
