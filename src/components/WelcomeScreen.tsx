@@ -10,8 +10,10 @@ const fontVariants = [
   { fontFamily: '"Palatino Linotype", serif', fontWeight: 600, fontStyle: 'italic' },
   { fontFamily: '"Courier New", monospace', fontWeight: 700 },
   { fontFamily: '"Times New Roman", serif', fontWeight: 400 },
-  { fontFamily: 'Impact, sans-serif', fontWeight: 400, letterSpacing: '0.02em' }
+  { fontFamily: 'Impact, sans-serif', fontWeight: 600}
 ];
+
+// , letterSpacing: '0.02em' 
 
 export function WelcomeScreen() {
   const [isVisible, setIsVisible] = useState(true);
@@ -67,7 +69,7 @@ export function WelcomeScreen() {
           <h1
             className="text-5xl text-ink sm:text-6xl md:text-7xl"
             style={fontVariants[currentIndex]}>
-            Sumedha
+            {currentIndex === fontVariants.length - 1 ? 'सुमेधा' : 'Sumedha'}
           </h1>
         </motion.div>
       )}
